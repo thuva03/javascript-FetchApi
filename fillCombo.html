@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fill Combo</title>
+</head>
+
+<body>
+
+    <button id="fillCombo">Fill Combobox</button>
+    <button id="fillTable">Fill Table</button>
+
+    <select id="usercombo">
+
+    </select><br>
+
+    <div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+            <tbody id="getRow">
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <script>
+        document.getElementById("fillCombo").addEventListener('click', getUsers);
+        document.getElementById("fillTable").addEventListener('click', getTable);
+        document.getElementById("usercombo").addEventListener('click', getValue);
+
+
+        function getUsers() {
+            fetch('user.json')
+                .then((res) => res.json())
+                .then((data) => {
+                    let output = '<h2>Users</h2>';
+                    console.log(data);
+                    data.forEach(function (user) {
+                        output += `
+                  
+                    <option >
+                    ID : ${user.id}
+                     ${user.name}
+                   
+                    </option>
+                  
+                    `
+                            ;
+                    });
+                    document.getElementById('usercombo').innerHTML = output;
+                })
+        }
+        function getTable() {
+            fetch('user.json')
+                .then((res) => res.json())
+                .then((data) => {
+                    let output = '';
+                    console.log(data);
+                    data.forEach(function (user) {
+                        output += `
+                       <tr >
+                      
+                    
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                      </tr>
+                    `;
+                    });
+                    document.getElementById('getRow').innerHTML = output;
+                })
+        }
+
+        function getValue(){
+            console.log(document.getElementById('usercombo').value);
+        }
+    </script>
+
+</body>
+
+</html>
